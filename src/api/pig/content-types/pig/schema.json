@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pigs",
+  "info": {
+    "singularName": "pig",
+    "pluralName": "pigs",
+    "displayName": "Pig"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pigCode": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "age": {
+      "type": "integer"
+    },
+    "healthStatus": {
+      "type": "boolean"
+    },
+    "barn": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::barn.barn",
+      "inversedBy": "pigs"
+    },
+    "note": {
+      "type": "text"
+    }
+  }
+}

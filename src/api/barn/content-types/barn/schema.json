@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "barns",
+  "info": {
+    "singularName": "barn",
+    "pluralName": "barns",
+    "displayName": "Barn"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "integer"
+    },
+    "area": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::area.area",
+      "inversedBy": "barns"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "barns"
+    },
+    "pigs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pig.pig",
+      "mappedBy": "barn"
+    }
+  }
+}
