@@ -445,7 +445,7 @@ export interface ApiAreaArea extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text;
+    description: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::area.area'> &
       Schema.Attribute.Private;
@@ -473,10 +473,14 @@ export interface ApiBarnBarn extends Struct.CollectionTypeSchema {
   };
   attributes: {
     area: Schema.Attribute.Relation<'manyToOne', 'api::area.area'>;
-    capacity: Schema.Attribute.Integer;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    description: Schema.Attribute.String;
+    feed_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::feed-setting.feed-setting'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::barn.barn'> &
       Schema.Attribute.Private;
@@ -490,6 +494,76 @@ export interface ApiBarnBarn extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiFeedSettingFeedSetting extends Struct.CollectionTypeSchema {
+  collectionName: 'feed_settings';
+  info: {
+    displayName: 'FeedSetting';
+    pluralName: 'feed-settings';
+    singularName: 'feed-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amountPerDay: Schema.Attribute.String;
+    barn: Schema.Attribute.Relation<'manyToOne', 'api::barn.barn'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::feed-setting.feed-setting'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    warehouse_item: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::warehouse-item.warehouse-item'
+    >;
+  };
+}
+
+export interface ApiPigGrowthRecordPigGrowthRecord
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'pig_growth_records';
+  info: {
+    displayName: 'PigGrowthRecord';
+    pluralName: 'pig-growth-records';
+    singularName: 'pig-growth-record';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pig-growth-record.pig-growth-record'
+    > &
+      Schema.Attribute.Private;
+    note: Schema.Attribute.Text;
+    pig: Schema.Attribute.Relation<'manyToOne', 'api::pig.pig'>;
+    publishedAt: Schema.Attribute.DateTime;
+    recordDate: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    weight: Schema.Attribute.Integer;
   };
 }
 
@@ -514,12 +588,136 @@ export interface ApiPigPig extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'> &
       Schema.Attribute.Private;
     note: Schema.Attribute.Text;
+    pig_growth_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pig-growth-record.pig-growth-record'
+    >;
     pigCode: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    type_pig: Schema.Attribute.Relation<'manyToOne', 'api::type-pig.type-pig'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    weight: Schema.Attribute.Decimal;
+  };
+}
+
+export interface ApiTypePigTypePig extends Struct.CollectionTypeSchema {
+  collectionName: 'type_pigs';
+  info: {
+    displayName: 'TypePig';
+    pluralName: 'type-pigs';
+    singularName: 'type-pig';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::type-pig.type-pig'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    pigs: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    weight: Schema.Attribute.Decimal;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
+export interface ApiWarehouseCategoryWarehouseCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'warehouse_categories';
+  info: {
+    displayName: 'WarehouseCategory';
+    pluralName: 'warehouse-categories';
+    singularName: 'warehouse-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::warehouse-category.warehouse-category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    warehouse_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::warehouse-item.warehouse-item'
+    >;
+  };
+}
+
+export interface ApiWarehouseItemWarehouseItem
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'warehouse_items';
+  info: {
+    displayName: 'WarehouseItem';
+    pluralName: 'warehouse-items';
+    singularName: 'warehouse-item';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    feed_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::feed-setting.feed-setting'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::warehouse-item.warehouse-item'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
+    unit: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    warehouse_category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::warehouse-category.warehouse-category'
+    >;
   };
 }
 
@@ -1004,6 +1202,11 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    pig_growth_records: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pig-growth-record.pig-growth-record'
+    >;
+    pigs: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1011,6 +1214,7 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    type_pigs: Schema.Attribute.Relation<'oneToMany', 'api::type-pig.type-pig'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1020,6 +1224,14 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 3;
       }>;
+    warehouse_categories: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::warehouse-category.warehouse-category'
+    >;
+    warehouse_items: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::warehouse-item.warehouse-item'
+    >;
   };
 }
 
@@ -1036,7 +1248,12 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::area.area': ApiAreaArea;
       'api::barn.barn': ApiBarnBarn;
+      'api::feed-setting.feed-setting': ApiFeedSettingFeedSetting;
+      'api::pig-growth-record.pig-growth-record': ApiPigGrowthRecordPigGrowthRecord;
       'api::pig.pig': ApiPigPig;
+      'api::type-pig.type-pig': ApiTypePigTypePig;
+      'api::warehouse-category.warehouse-category': ApiWarehouseCategoryWarehouseCategory;
+      'api::warehouse-item.warehouse-item': ApiWarehouseItemWarehouseItem;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "areas",
+  "collectionName": "warehouse_categories",
   "info": {
-    "singularName": "area",
-    "pluralName": "areas",
-    "displayName": "Area"
+    "singularName": "warehouse-category",
+    "pluralName": "warehouse-categories",
+    "displayName": "WarehouseCategory"
   },
   "options": {
     "draftAndPublish": true
@@ -15,19 +15,19 @@
       "type": "string"
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "areas"
+      "inversedBy": "warehouse_categories"
     },
-    "barns": {
+    "warehouse_items": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::barn.barn",
-      "mappedBy": "area"
+      "target": "api::warehouse-item.warehouse-item",
+      "mappedBy": "warehouse_category"
     }
   }
 }

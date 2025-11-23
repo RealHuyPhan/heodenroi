@@ -77,6 +77,36 @@
       "relation": "oneToMany",
       "target": "api::barn.barn",
       "mappedBy": "users_permissions_user"
+    },
+    "pigs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pig.pig",
+      "mappedBy": "users_permissions_user"
+    },
+    "type_pigs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::type-pig.type-pig",
+      "mappedBy": "users_permissions_user"
+    },
+    "warehouse_categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::warehouse-category.warehouse-category",
+      "mappedBy": "users_permissions_user"
+    },
+    "warehouse_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::warehouse-item.warehouse-item",
+      "mappedBy": "users_permissions_user"
+    },
+    "pig_growth_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pig-growth-record.pig-growth-record",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

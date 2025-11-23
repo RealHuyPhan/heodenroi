@@ -23,14 +23,32 @@
     "healthStatus": {
       "type": "boolean"
     },
+    "note": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "pigs"
+    },
+    "type_pig": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::type-pig.type-pig",
+      "inversedBy": "pigs"
+    },
     "barn": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::barn.barn",
       "inversedBy": "pigs"
     },
-    "note": {
-      "type": "text"
+    "pig_growth_records": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pig-growth-record.pig-growth-record",
+      "mappedBy": "pig"
     }
   }
 }

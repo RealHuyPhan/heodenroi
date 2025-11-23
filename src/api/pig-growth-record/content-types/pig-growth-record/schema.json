@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pig_growth_records",
+  "info": {
+    "singularName": "pig-growth-record",
+    "pluralName": "pig-growth-records",
+    "displayName": "PigGrowthRecord"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "recordDate": {
+      "type": "datetime"
+    },
+    "weight": {
+      "type": "integer"
+    },
+    "note": {
+      "type": "text"
+    },
+    "pig": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pig.pig",
+      "inversedBy": "pig_growth_records"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "pig_growth_records"
+    }
+  }
+}

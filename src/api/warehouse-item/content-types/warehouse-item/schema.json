@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "barns",
+  "collectionName": "warehouse_items",
   "info": {
-    "singularName": "barn",
-    "pluralName": "barns",
-    "displayName": "Barn"
+    "singularName": "warehouse-item",
+    "pluralName": "warehouse-items",
+    "displayName": "WarehouseItem"
   },
   "options": {
     "draftAndPublish": true
@@ -14,32 +14,29 @@
     "name": {
       "type": "string"
     },
-    "description": {
-      "type": "string"
-    },
-    "area": {
+    "warehouse_category": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::area.area",
-      "inversedBy": "barns"
+      "target": "api::warehouse-category.warehouse-category",
+      "inversedBy": "warehouse_items"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "unit": {
+      "type": "string"
     },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "barns"
-    },
-    "pigs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::pig.pig",
-      "mappedBy": "barn"
+      "inversedBy": "warehouse_items"
     },
     "feed_settings": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::feed-setting.feed-setting",
-      "mappedBy": "barn"
+      "mappedBy": "warehouse_item"
     }
   }
 }

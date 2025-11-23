@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "feed_settings",
+  "info": {
+    "singularName": "feed-setting",
+    "pluralName": "feed-settings",
+    "displayName": "FeedSetting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "barn": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::barn.barn",
+      "inversedBy": "feed_settings"
+    },
+    "warehouse_item": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::warehouse-item.warehouse-item",
+      "inversedBy": "feed_settings"
+    },
+    "amountPerDay": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}
