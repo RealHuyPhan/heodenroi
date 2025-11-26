@@ -84,12 +84,6 @@
       "target": "api::pig.pig",
       "mappedBy": "users_permissions_user"
     },
-    "type_pigs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::type-pig.type-pig",
-      "mappedBy": "users_permissions_user"
-    },
     "warehouse_categories": {
       "type": "relation",
       "relation": "oneToMany",
@@ -107,6 +101,24 @@
       "relation": "oneToMany",
       "target": "api::pig-growth-record.pig-growth-record",
       "mappedBy": "users_permissions_user"
+    },
+    "pig_types": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pig-type.pig-type",
+      "mappedBy": "users_permissions_user"
+    },
+    "todos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::todo.todo",
+      "mappedBy": "users_permissions_user"
+    },
+    "todo": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::todo.todo",
+      "mappedBy": "create_by"
     }
   }
 }

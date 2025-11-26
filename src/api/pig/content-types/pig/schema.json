@@ -32,12 +32,6 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "pigs"
     },
-    "type_pig": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::type-pig.type-pig",
-      "inversedBy": "pigs"
-    },
     "barn": {
       "type": "relation",
       "relation": "manyToOne",
@@ -49,6 +43,12 @@
       "relation": "oneToMany",
       "target": "api::pig-growth-record.pig-growth-record",
       "mappedBy": "pig"
+    },
+    "pig_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pig-type.pig-type",
+      "inversedBy": "pigs"
     }
   }
 }

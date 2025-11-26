@@ -567,6 +567,40 @@ export interface ApiPigGrowthRecordPigGrowthRecord
   };
 }
 
+export interface ApiPigTypePigType extends Struct.CollectionTypeSchema {
+  collectionName: 'pig_types';
+  info: {
+    displayName: 'PigType';
+    pluralName: 'pig-types';
+    singularName: 'pig-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pig-type.pig-type'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    pigs: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    users_permissions_user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiPigPig extends Struct.CollectionTypeSchema {
   collectionName: 'pigs';
   info: {
@@ -592,9 +626,9 @@ export interface ApiPigPig extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::pig-growth-record.pig-growth-record'
     >;
+    pig_type: Schema.Attribute.Relation<'manyToOne', 'api::pig-type.pig-type'>;
     pigCode: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    type_pig: Schema.Attribute.Relation<'manyToOne', 'api::type-pig.type-pig'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -606,30 +640,33 @@ export interface ApiPigPig extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTypePigTypePig extends Struct.CollectionTypeSchema {
-  collectionName: 'type_pigs';
+export interface ApiTodoTodo extends Struct.CollectionTypeSchema {
+  collectionName: 'todos';
   info: {
-    displayName: 'TypePig';
-    pluralName: 'type-pigs';
-    singularName: 'type-pig';
+    displayName: 'Todo';
+    pluralName: 'todos';
+    singularName: 'todo';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    create_by: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::type-pig.type-pig'
-    > &
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::todo.todo'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    pigs: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'>;
     publishedAt: Schema.Attribute.DateTime;
+    toDoStatus: Schema.Attribute.Enumeration<
+      ['unAssigned', 'assigned', 'doing', 'done']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1206,6 +1243,7 @@ export interface PluginUsersPermissionsUser
       'oneToMany',
       'api::pig-growth-record.pig-growth-record'
     >;
+    pig_types: Schema.Attribute.Relation<'oneToMany', 'api::pig-type.pig-type'>;
     pigs: Schema.Attribute.Relation<'oneToMany', 'api::pig.pig'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
@@ -1214,7 +1252,8 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    type_pigs: Schema.Attribute.Relation<'oneToMany', 'api::type-pig.type-pig'>;
+    todo: Schema.Attribute.Relation<'oneToMany', 'api::todo.todo'>;
+    todos: Schema.Attribute.Relation<'oneToMany', 'api::todo.todo'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1250,8 +1289,9 @@ declare module '@strapi/strapi' {
       'api::barn.barn': ApiBarnBarn;
       'api::feed-setting.feed-setting': ApiFeedSettingFeedSetting;
       'api::pig-growth-record.pig-growth-record': ApiPigGrowthRecordPigGrowthRecord;
+      'api::pig-type.pig-type': ApiPigTypePigType;
       'api::pig.pig': ApiPigPig;
-      'api::type-pig.type-pig': ApiTypePigTypePig;
+      'api::todo.todo': ApiTodoTodo;
       'api::warehouse-category.warehouse-category': ApiWarehouseCategoryWarehouseCategory;
       'api::warehouse-item.warehouse-item': ApiWarehouseItemWarehouseItem;
       'plugin::content-releases.release': PluginContentReleasesRelease;
